@@ -77,7 +77,7 @@ function paintPromise (wall) {
     })
 }
 
-
+/*
 buildPromise(wallToBuild)
   .then(wallBuilt => {
     planishPromise(wallBuilt)
@@ -98,3 +98,18 @@ buildPromise(wallToBuild)
   .catch(error => {
     console.error('ERROR at built promise')
   })
+*/
+
+async function main () {
+    const wallBuilt = await buildPromise(wallToBuild)
+    const wallPlanished = await planishPromise(wallBuilt)
+    const wallPainted = await paintPromise (wallPlanished)
+}
+
+main ()
+.then(()=>{
+    console.log('todo cool')
+})
+.catch(error => {
+    console.log('algo fallo')
+})

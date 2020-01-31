@@ -78,7 +78,7 @@ function assistPromise(koder) {
     })
 }
 
-
+/*
 interviewPromise(selectionProcess)
     .then(interviewed => {
         enrollPromise(interviewed)
@@ -101,4 +101,20 @@ interviewPromise(selectionProcess)
     })
     .catch(error => {
         console.log("Error")
+    })
+*/
+
+    async function main () {
+        const koderInterviewed = await interviewPromise(selectionProcess)
+        const koderEnroll = await enrollPromise(koderInterviewed)
+        const koderAssist = await assistPromise (koderEnroll)
+        console.log(koderAssist)
+    }
+    
+    main ()
+    .then(()=>{
+        console.log('todo cool')
+    })
+    .catch(error => {
+        console.log('algo fallo')
     })

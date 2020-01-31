@@ -27,7 +27,7 @@ function inclassroom(koder, callback) {
 }
 
 
-interview(selectionProcess, (error, interviewDone) => {
+/* interview(selectionProcess, (error, interviewDone) => {
     if (error) {
         console.log("not interviewed")
         return
@@ -46,3 +46,59 @@ interview(selectionProcess, (error, interviewDone) => {
         })
     })
 })
+*/
+
+
+function interviewPromise(koder) {
+    return new Promise((resolve, reject) => {
+        interview(koder, (error, interviewed) => {
+            if (error) return reject(error)
+            resolve(interviewed)
+        })
+    })
+}
+
+
+function enrollPromise(koder) {
+    return new Promise((resolve, reject) => {
+        enroll(koder, (error, enrolled) => {
+            if (error) return reject(error)
+            resolve(enrolled)
+        })
+    })
+}
+
+
+function assistPromise(koder) {
+    return new Promise((resolve, reject) => {
+        inclassroom(koder, (error, inClass) => {
+            if (error) return reject(error)
+            resolve(inClass)
+        })
+    })
+}
+
+
+interviewPromise(selectionProcess)
+    .then(interviewed => {
+        enrollPromise(interviewed)
+            .then(enrolled => {
+                assistPromise(enrolled)
+                    .then(inClass => {
+                        console.log("fin", inClass)
+                    })
+                    .catch(error => {
+                        console.log("Error")
+
+                    })
+
+            })
+            .catch(error => {
+                console.log("Error")
+
+            })
+
+    })
+    .catch(error => {
+        console.log("Error")
+    })
